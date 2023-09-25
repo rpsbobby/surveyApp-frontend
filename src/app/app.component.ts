@@ -3,6 +3,7 @@ import { AuthenticationBody } from './common/auth/authentication-body';
 import { RegistrationBody } from './common/auth/registration-body';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { LocalStorageService } from './services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -11,34 +12,27 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'app-frontend';
-  token!: string;
-  constructor(private service: AuthService, private router: Router) {}
+  token!: null | string;
+  expiration!: null | string;
+
+  constructor(
+    private authService: AuthService,
+    private storageService: LocalStorageService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    console.log('created');
-    if (this.service.getToken() != null) {
+    if (
+      this.storageService.getToken() != null &&
+      this.storageService.isExpirationDateValid()
+    ) {
       this.router.navigateByUrl('/main');
     } else {
       this.router.navigateByUrl('/auth');
     }
-    // this.service
-    //   .register(new RegistrationBody('mark', 'twain', 'mark@test.com', '1234'))
-    //   .subscribe((data) => {
-    //     this.token = data.token;
-    //     this.service.persistToken(this.token);
-    //     console.log(this.token);
-    //   });
-    //authenticate
-    // this.service
-    //   .authenticate(new AuthenticationBody('mark@test.com', '1234'))
-    //   .subscribe((data) => {
-    //     this.token = data.token;
-    //   });
-    // this.saveData(this.token);
   }
 
   ngOnDestroy() {
-    localStorage.removeItem('token');
-    this.service.deleteToken();
+    this.storageService.deleteToken();
   }
 }

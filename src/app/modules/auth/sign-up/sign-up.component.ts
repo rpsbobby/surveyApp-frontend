@@ -8,6 +8,8 @@ import {
 import { matchPasswords } from '../validators/passwordValidator';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegistrationBody } from 'src/app/common/auth/registration-body';
+import { Router } from '@angular/router';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,7 +17,12 @@ import { RegistrationBody } from 'src/app/common/auth/registration-body';
   styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent {
-  constructor(private fb: FormBuilder, private service: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private storageService: LocalStorageService,
+    private router: Router
+  ) {}
 
   token: string = '';
 
@@ -61,9 +68,10 @@ export class SignUpComponent {
         requestPassword
       );
 
-      this.service.register(body).subscribe((data) => {
-        this.service.persistToken(data.token);
+      this.authService.register(body).subscribe((data) => {
+        this.storageService.persistToken(data.token, new Date(data.expiration));
       });
+      this.router.navigateByUrl('/main');
     }
   }
 }

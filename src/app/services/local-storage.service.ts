@@ -4,31 +4,46 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class LocalStorageService {
+  key = 'userDetails';
   constructor() {}
 
-  persistToken(token: string, expiration: Date): void {
-    localStorage.setItem('token', token);
-    localStorage.setItem('expiration', expiration.toISOString());
+  saveDetails(details: string) {
+    localStorage.setItem(this.key, details);
   }
 
-  deleteToken(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiration');
+  getDetails(): string {
+    let content = localStorage.getItem(this.key);
+    if (content) return content;
+    return '';
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  removeDetails() {
+    localStorage.removeItem(this.key);
   }
 
-  getExpirationDate(): null | Date {
-    let date: string | null = localStorage.getItem('expiration');
-    return date == null ? null : new Date(date);
-  }
+  // persistToken(token: string, expiration: Date): void {
+  //   localStorage.setItem('token', token);
+  //   localStorage.setItem('expiration', expiration.toISOString());
+  // }
 
-  isExpirationDateValid(): boolean {
-    let date: Date | null = this.getExpirationDate();
-    if (date == null) return false;
-    let now: Date = new Date();
-    return now.getTime() < date.getTime();
-  }
+  // deleteToken(): void {
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('expiration');
+  // }
+
+  // getToken(): string | null {
+  //   return localStorage.getItem('token');
+  // }
+
+  // getExpirationDate(): null | Date {
+  //   let date: string | null = localStorage.getItem('expiration');
+  //   return date == null ? null : new Date(date);
+  // }
+
+  // isExpirationDateValid(): boolean {
+  //   let date: Date | null = this.getExpirationDate();
+  //   if (date == null) return false;
+  //   let now: Date = new Date();
+  //   return now.getTime() < date.getTime();
+  // }
 }

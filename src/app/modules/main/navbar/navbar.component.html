@@ -1,0 +1,74 @@
+<div class="container">
+  <nav
+    class="navbar navbar-expand navbar-light bg-light border-bottom border-3"
+  >
+    <div
+      class="d-flex p-2 w-100 justify-content-center align-content-center justify-content-around"
+    >
+      <div *ngIf="isLoggedIn; else elseBlock">
+        <a class="navbar-brand ms-2">Signed in as: {{ user }}</a>
+        <button (click)="signOut()" class="btn btn-outline-dark btn-sm ms-2">
+          Sign Out
+        </button>
+        <a class="ms-2 navbar-brand me-0">|</a>
+        <a
+          routerLink="/main/create-survey"
+          class="btn btn-outline-dark btn-sm ms-2"
+        >
+          Create Survey
+        </a>
+        <a
+          routerLink="/main/delete-survey"
+          class="btn btn-outline-dark btn-sm ms-2"
+        >
+          Modify Survey
+        </a>
+      </div>
+      <ng-template #elseBlock>
+        <div class="d-inline">
+          <!-- <a routerLink="/auth/signin" class="navbar-brand mx-5">Sing In</a> -->
+          <a routerLink="/auth/signin" class="btn btn-outline-dark btn-sm ms-2"
+            >Sing In</a
+          >
+          <a routerLink="/auth/signup" class="btn btn-outline-dark btn-sm ms-2"
+            >Sign Up</a
+          >
+        </div>
+      </ng-template>
+      <!-- <a class="">|</a> -->
+      <!-- <div> -->
+      <!-- </div> -->
+      <!-- <form> -->
+      <div
+        class="row d-flex flex-row justify-content-center align-content-center"
+      >
+        <div class="col">
+          <input
+            [ngClass]="{ 'border border-danger': invalid }"
+            class="form-control form-control-sm"
+            type="search"
+            placeholder="Find By Id"
+            aria-label="Search"
+            [formControl]="id"
+          />
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-dark btn-sm" (click)="findById()">
+            Search
+          </button>
+        </div>
+        <a class="col text-dark">|</a>
+
+        <div class="col ms-0">
+          <button
+            routerLink="/main/find-all"
+            class="btn btn-outline-dark btn-sm ms-0"
+          >
+            Find All
+          </button>
+        </div>
+      </div>
+      <!-- </form> -->
+    </div>
+  </nav>
+</div>

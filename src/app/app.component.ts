@@ -21,18 +21,22 @@ export class AppComponent {
     private router: Router
   ) {}
 
+  // ngOnInit() {
+  //   if (
+  //     this.storageService.getToken() != null &&
+  //     this.storageService.isExpirationDateValid()
+  //   ) {
+  //     this.router.navigateByUrl('/main');
+  //   } else {
+  //     this.router.navigateByUrl('/auth');
+  //   }
+  // }
+
   ngOnInit() {
-    if (
-      this.storageService.getToken() != null &&
-      this.storageService.isExpirationDateValid()
-    ) {
-      this.router.navigateByUrl('/main');
-    } else {
-      this.router.navigateByUrl('/auth');
-    }
+    // this.router.navigateByUrl('/main');
   }
 
-  ngOnDestroy() {
-    this.storageService.deleteToken();
-  }
+  // ngOnDestroy() {
+  //   this.storageService.removeDetails();
+  // }
 }

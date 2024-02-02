@@ -1,0 +1,57 @@
+<div class="container py-3">
+  <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group mb-3">
+        <label for="title" class="fs-2">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Title"
+          name="Title"
+          formControlName="title"
+          [ngClass]="
+            surveyForm.get('title')?.touched && surveyForm.get('title')?.invalid
+              ? 'border border-danger'
+              : ''
+          "
+        />
+      </div>
+    </div>
+    <div formArrayName="questions">
+      <ng-container
+        *ngFor="let question of questions.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <label for="title" class="fs-3">Question {{ i + 1 }}</label>
+        <div class="input-group mb-3">
+          <button
+            class="btn-small btn-primary btn col-auto"
+            (click)="deleteQuestion(i)"
+          >
+            Delete
+          </button>
+          <input
+            type="text"
+            class="form-control form-control-lg"
+            placeholder="Question"
+            name="question"
+            formControlName="question"
+            [ngClass]="
+              questions.at(i).touched && questions.at(i).invalid
+                ? 'border border-danger'
+                : ''
+            "
+          />
+        </div>
+      </ng-container>
+      <button class="btn btn-primary" type="button" (click)="addQuestion()">
+        + Question
+      </button>
+    </div>
+
+    <button type="submit" class="btn btn-primary my-2">Submit</button>
+  </form>
+  <br />
+
+  <!-- {{ surveyForm.value | json }} -->
+</div>

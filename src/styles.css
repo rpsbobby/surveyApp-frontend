@@ -1,12 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 @import "bootstrap/dist/css/bootstrap.min.css";
 
-.app-background {
-  background-color: #461743;
-}
+/* body,
+.bg {
+  background: #feda75;
+
 a {
   text-decoration: none;
 }
+
+.navbar-background {
+  background: #fa7e1e;
+} */
+
+/* .btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+  background-color: #4f5bd5 !important;
+} */

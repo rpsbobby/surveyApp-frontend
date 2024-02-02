@@ -19,19 +19,20 @@ export class SignInComponent {
   ) {}
 
   signInForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: ['', [Validators.required]],
     password: ['', Validators.required],
   });
 
-  onSubmit() {
+  async onSubmit() {
     // TODO: Use EventEmitter with form value#
+    console.log('submitting', this.signInForm.invalid);
     if (this.signInForm.invalid) {
       this.signInForm.markAsDirty();
       return;
     }
-    let requestEmail: string | null = this.signInForm!.controls['email'].value;
-    let requestPassword: string | null =
-      this.signInForm!.controls['password'].value;
+    let requestEmail: string = this.signInForm!.controls['email'].value || '';
+    let requestPassword: string =
+      this.signInForm!.controls['password'].value || '';
 
     if (requestEmail && requestPassword) {
       const body: AuthenticationBody = new AuthenticationBody(
@@ -39,10 +40,12 @@ export class SignInComponent {
         requestPassword
       );
 
-      this.authService.authenticate(body).subscribe((data) => {
-        this.storageService.persistToken(data.token, new Date(data.expiration));
-      });
-      this.router.navigateByUrl('/main');
+      const response = await this.authService.authenticate(body);
+      if (response) {
+        this.router.navigateByUrl('/main');
+      } else {
+        console.log('display a message');
+      }
     }
   }
 }

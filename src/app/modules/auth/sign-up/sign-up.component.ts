@@ -39,8 +39,7 @@ export class SignUpComponent {
     }
   );
 
-  onSubmit() {
-    // TODO: Use EventEmitter with form value
+  async onSubmit() {
     console.warn(this.signUpForm.value);
 
     if (this.signUpForm.invalid) {
@@ -68,10 +67,12 @@ export class SignUpComponent {
         requestPassword
       );
 
-      this.authService.register(body).subscribe((data) => {
-        this.storageService.persistToken(data.token, new Date(data.expiration));
-      });
-      this.router.navigateByUrl('/main');
+      const response = await this.authService.register(body);
+      if (response) {
+        this.router.navigateByUrl('/main');
+      } else {
+        console.log('display a message');
+      }
     }
   }
 }

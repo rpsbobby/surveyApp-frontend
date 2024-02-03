@@ -1,20 +1,21 @@
-<div class="vh-100">
-  <div class="navbar-background text-center py-2">
-    <p class="h1">Surveys by {{ user }}</p>
+<div class="navbar-background text-center py-2">
+  <p class="h1">Surveys by {{ user }}</p>
+</div>
+<div class="container">
+  <div *ngIf="surveys.length === 0" class="fs-3 text-center">
+    *** No Surveys Yet ***
   </div>
-  <div class="container">
-    <ng-container *ngFor="let s of surveys; let i = index">
-      <div class="input-group mt-3">
-        <input
-          class="form-control fs-3 text-center"
-          placeholder="Title: {{ s['title'] }}"
-          disabled
-        />
-        <button (click)="delete(i)" class="btn btn-primary mx-1">
-          Delete Survey
-        </button>
-        <button (click)="modify(i)" class="btn btn-primary">Modify</button>
-      </div>
-    </ng-container>
-  </div>
+  <ng-container *ngFor="let s of surveys; let i = index">
+    <div class="input-group mt-3">
+      <input
+        class="form-control fs-3 text-center"
+        placeholder="Title: {{ s['title'] }}"
+        disabled
+      />
+      <button (click)="delete(i)" class="btn btn-dark mx-1">
+        Delete Survey
+      </button>
+      <button (click)="modify(i)" class="btn btn-dark">Modify</button>
+    </div>
+  </ng-container>
 </div>

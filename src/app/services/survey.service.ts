@@ -45,11 +45,11 @@ export class SurveyService {
       .concat('/survey/')
       .concat(surveyId.toString());
 
-    console.log(url);
-    // const headers = this.getHeaders();
-    // return this.http
-    //   .delete<any>(url, { headers: headers })
-    //   .subscribe((data) => console.log(data));
+    // console.log(url);
+    const headers = this.getHeaders();
+    return this.http
+      .delete<any>(url, { headers: headers })
+      .subscribe((data) => console.log(data));
   }
 
   deleteSurvey(surveyId: number) {
@@ -57,18 +57,16 @@ export class SurveyService {
       .concat('delete/')
       .concat(surveyId.toString());
     const headers = this.getHeaders();
-    console.log(url);
-    // return this.http
-    //   .delete<any>(url, { headers: headers })
-    //   .subscribe((data) => console.log(data));
+    // console.log(url);
+    return this.http
+      .delete<any>(url, { headers: headers })
+      .subscribe((data) => console.log(data));
   }
 
   addSurvey(survey: SurveyDto) {
     const url: string = this.baseUrl.concat('add');
     const headers = this.getHeaders();
-    return this.http
-      .post<any>(url, survey, { headers: headers })
-      .subscribe((data) => console.log(data));
+    return this.http.post<any>(url, survey, { headers: headers });
   }
 
   update(survey: SurveyDto) {
@@ -82,7 +80,6 @@ export class SurveyService {
   findAllByCreator() {
     const url = this.baseUrl.concat('getAllByCreator');
     const headers = this.getHeaders();
-    console.log(this.token);
     return this.http.get<FindByCreator>(url, { headers: headers });
   }
 
@@ -101,7 +98,7 @@ export class SurveyService {
 }
 
 interface FindAllResponse {
-  surveys: [];
+  surveys: SurveyDto[];
 }
 interface FindByIdResponse {
   id: number;

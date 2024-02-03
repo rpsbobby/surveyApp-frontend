@@ -1,7 +1,6 @@
-<app-navbar></app-navbar>
 <div class="vh-100">
   <div class="navbar-background text-center py-2">
-    <p class="h1">{{ survey.title }}</p>
+    <p class="h1">Title: {{ survey.title }}</p>
   </div>
   <div class="container">
     <ng-container *ngFor="let q of survey.questions">
@@ -11,7 +10,7 @@
           placeholder="{{ q.question }}"
           disabled
         />
-        <button (click)="deleteQuestion(q['id'])" class="btn btn-primary">
+        <button (click)="deleteQuestion(q['id'])" class="btn btn-dark">
           Delete Question
         </button>
       </div>

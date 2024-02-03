@@ -10,11 +10,12 @@ import { SurveyService } from 'src/app/services/survey.service';
   styleUrls: ['./find-all.component.css'],
 })
 export class FindAllComponent {
-  surveys = [];
+  surveys: SurveyDto[] = [];
   constructor(private surveyService: SurveyService, private router: Router) {}
 
   ngOnInit() {
     this.surveyService.findAll().subscribe((data) => {
+      console.log(data);
       this.surveys = data.surveys;
     });
   }

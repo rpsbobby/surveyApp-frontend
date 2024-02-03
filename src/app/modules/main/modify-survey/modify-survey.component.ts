@@ -20,9 +20,10 @@ export class ModifySurveyComponent {
   ngOnInit() {
     this.id = Number(this.route.snapshot.url[1].path);
     console.log(this.id);
-    this.surveyService
-      .findById(this.id)
-      .subscribe((data) => (this.survey = data));
+    this.surveyService.findById(this.id).subscribe((data) => {
+      console.log(data);
+      this.survey = data;
+    });
   }
 
   deleteQuestion(id: number) {
@@ -32,5 +33,6 @@ export class ModifySurveyComponent {
       )
     )
       this.surveyService.deleteQuestion(id, this.survey.id);
+    window.location.reload();
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Answer } from 'src/app/common/entities/answer';
 import { Question } from 'src/app/common/entities/question';
 import { AnswerControlService } from 'src/app/services/answer-control.service';
@@ -13,6 +13,7 @@ import { SurveyService } from 'src/app/services/survey.service';
 })
 export class AnswerSurveyComponent {
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private service: SurveyService,
     private acs: AnswerControlService,
@@ -69,5 +70,6 @@ export class AnswerSurveyComponent {
     });
 
     this.service.addAnswers(this.surveyId, this.answers);
+    this.router.navigateByUrl('');
   }
 }

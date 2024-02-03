@@ -25,7 +25,10 @@ export class CreateSurveyComponent {
   ngOnInit() {
     this.surveyForm = this.formBuilder.group({
       title: ['', Validators.required],
-      questions: this.formBuilder.array([this.formBuilder.control('')]),
+      questions: this.formBuilder.array(
+        [this.formBuilder.control('')],
+        [Validators.required]
+      ),
     });
   }
 
@@ -34,9 +37,7 @@ export class CreateSurveyComponent {
   }
 
   addQuestion() {
-    this.questions.push(
-      this.formBuilder.control('', Validators.required)
-    );
+    this.questions.push(this.formBuilder.control(''));
   }
 
   deleteQuestion(index: number) {
@@ -49,10 +50,12 @@ export class CreateSurveyComponent {
       return;
     }
     // create a survey
-    console.log(this.surveyForm.value);
     const survey = this.createSurvey(this.surveyForm.value);
     // pass to the service
-    this.surveyService.addSurvey(survey);
+    this.surveyService.addSurvey(survey).subscribe((message) => {
+      console.log(message);
+      this.router.navigateByUrl('/');
+    });
   }
 
   private createSurvey(data: SurveyData): SurveyDto {
@@ -64,7 +67,7 @@ export class CreateSurveyComponent {
     temp.title = data.title;
     data.questions.forEach((item) => {
       let question = new Question();
-      question.question = item['question'];
+      question.question = item;
       // console.log(q['question']);
       temp.questions.push(question);
     });

@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { NotFoundComponent } from './common/components/not-found/not-found.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'main/main', pathMatch: 'full' },
+  { path: '', redirectTo: 'main', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>

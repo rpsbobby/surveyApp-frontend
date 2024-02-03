@@ -20,12 +20,13 @@ export class DeleteSurveyComponent {
     private router: Router,
     private authService: AuthService
   ) {
-    this.service.findAllByCreator().subscribe((data) => {
-      this.surveys = data['surveys'];
-      this.authService.getUsername().subscribe((data) => {
-        this.user = data;
-      });
-    });
+    // this.service.findAllByCreator().subscribe((data) => {
+    //   this.surveys = data['surveys'];
+    //   this.authService.getUsername().subscribe((data) => {
+    //     this.user = data;
+    //   });
+    // });
+    this.findAllByCreator();
   }
 
   modify(i: number) {
@@ -37,7 +38,20 @@ export class DeleteSurveyComponent {
       window.confirm(
         'Are sure you want to delete this survey? All data will be lost'
       )
-    )
+    ) {
       this.service.deleteSurvey(this.surveys[i].id);
+      // this.router.navigateByUrl('/main/delete-survey');
+      // this.router.navigate([this.router.url]);
+      window.location.reload();
+    }
+  }
+  findAllByCreator() {
+    this.service.findAllByCreator().subscribe((data) => {
+      console.log(data);
+      this.surveys = data['surveys'];
+      this.authService.getUsername().subscribe((data) => {
+        this.user = data;
+      });
+    });
   }
 }

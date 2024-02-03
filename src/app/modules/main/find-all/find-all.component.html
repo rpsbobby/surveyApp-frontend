@@ -7,12 +7,10 @@
       <div class="input-group mt-3">
         <input
           class="form-control fs-3 text-center"
-          placeholder="Title: {{ s['name'] }}"
+          placeholder="Title: {{ s.title }}"
           disabled
         />
-        <button (click)="answer(s['id'])" class="btn btn-primary">
-          Answer
-        </button>
+        <button (click)="answer(s['id'])" class="btn btn-dark">Answer</button>
       </div>
     </ng-container>
   </div>
